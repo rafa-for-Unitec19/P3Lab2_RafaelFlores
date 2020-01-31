@@ -37,15 +37,21 @@ int arrayToNumber(){
 	int num = 0;
 	for(int i = 0; i < 4; i++){
 		num += arrKaraprekar[i] * powers[i];
-		cout << num << endl;
 	}
 	return num;
+}
+
+void numberToArray(int num){
+	for(int i = 0; i < 4; i++){
+		arrKaraprekar[i] =  num / powers[i];
+		num = num % powers[i];
+	}
 }
 
 void BubbleSort(){
 	for(int i = 0; i < (4-1); i++){
 		for(int j = 0; j < (4-i-1); j++){
-			if (arrKaraprekar[j] > arrKaraprekar[j + 1] ){
+			if (arrKaraprekar[j] < arrKaraprekar[j + 1] ){
 				int temp = arrKaraprekar[j];
 				arrKaraprekar[j] = arrKaraprekar[j + 1];
 				arrKaraprekar[j+1] = temp;	
@@ -54,38 +60,7 @@ void BubbleSort(){
 	}
 }
 
-void karaprekar(){
-	int res, num, numI, cont = 1;
-	while (res != 6174){
-		num = arrayToNumber();
-		cout << num << "\n"; 
-		BubbleSort();
-		numI = arrayToNumber();
-		res = numI - num;
-		cout << cont << numI << " - " << num << " = " << res << "\n";
-	cont++;
-		res = 6174;
-	}
-}
 
-int getDigits(){
-	while(true){
-		string buff;
-		cout << "Ingrese un Numero de cuatro cifras: \n";
-		cin >> buff;
-		if ( buff.length() != 4){
-			cout << "Debe ingresar un numero de 4 digitos!!!\n";
-		}else{
-			if (chkEquality(buff)){
-				cout << "Todos los digitos deben ser diferentes!!\n";
-			}
-			else{
-				break;
-			}
-		}
-	}
-	karaprekar();
-}
 
 int getNumber(int serie){
 	int num;
@@ -119,6 +94,41 @@ void imprimir(int *arr, int tam){
 		cout << "[ " << arr[i] << " ] ";
 	}
 	cout << "\n";
+}
+
+
+void karaprekar(){
+	int res, num, numI, cont = 1;
+	while (cont < 8){
+		num = arrayToNumber();
+		BubbleSort();
+		imprimir(arrKaraprekar, 4);
+		numI = arrayToNumber();
+		res = numI - num;
+		cout << cont << " | " << numI << " - " << num << " = " << res << "\n";
+		cont++;
+		numberToArray(res);
+	}
+}
+
+
+int getDigits(){
+	while(true){
+		string buff;
+		cout << "Ingrese un Numero de cuatro cifras: \n";
+		cin >> buff;
+		if ( buff.length() != 4){
+			cout << "Debe ingresar un numero de 4 digitos!!!\n";
+		}else{
+			if (chkEquality(buff)){
+				cout << "Todos los digitos deben ser diferentes!!\n";
+			}
+			else{
+				break;
+			}
+		}
+	}
+	karaprekar();
 }
 
 int arrTam(){
