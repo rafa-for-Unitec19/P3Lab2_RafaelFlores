@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int eNum1, eNum2;
+int eNum1, eNum2, tamanio;
 
 int getRand(){
 	int num = rand() % 100;
@@ -58,6 +58,7 @@ void imprimir(int *arr, int tam){
 	for(int i = 0; i < tam; i++){
 		cout << "[ " << arr[i] << " ] ";
 	}
+	cout << "\n";
 }
 
 int arrTam(){
@@ -74,28 +75,35 @@ int arrTam(){
 }
 
 int  *llenar(){
-	int tam = arrTam();
-	int *arr = new int[tam];
-	for(int i = 0; i < tam; i++){
+	tamanio = arrTam();
+	int *arr = new int[tamanio];
+	for(int i = 0; i < tamanio; i++){
 		arr[i] = getRand(); 
 	}
 	return arr;
 }
 
-int sortear(int* arr, int tam){
+void sortear(){
+	int *arr = llenar();
+	imprimir(arr, tamanio);
 	bool flag = false;
-	int ref = -1, compare;
+	int ref = -1, compare[2];
 	while(!flag){
 		ref++;
-		compare = arr[ref];
-		for(int i = ref; i < tam; i++){
-			if (compare > arr[i]){
-				compare = arr[i]; 
+		compare[0] = arr[ref];
+		compare[1] = ref;
+		for(int i = ref; i < tamanio; i++){
+			if (compare[0] > arr[i]){
+				compare[0] = arr[i];
+				compare[1] = i;	
 			}
-			if (ref == (tam-1)){
+			if (ref == (tamanio-1)){
 				flag = true;
 			}
 		}
+		arr[compare[1]] = arr[ref];
+		arr[ref] = compare[0];
+		imprimir(arr, tamanio);
 	}
 }
 
@@ -130,7 +138,7 @@ void selector(){
 				cout << "El MCD resultante es: " << res << "\n";		
 				break;
 			case 2:
-				cout << "El 3";
+				sortear();
 				break;
 			case 3:
 				cout << "El 4";
