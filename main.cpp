@@ -2,15 +2,13 @@
 //31 de Enero del 2020
 
 #include <iostream>
-#include <cstdlib>
-#include <iomanip>
 #include <string>
 
 
 using namespace std;
 
-int eNum1, eNum2, tamanio, powers = {1, 10, 100, 100};
-int *arrKaraprekar;.
+int eNum1, eNum2, tamanio, powers[4] = {1000, 100, 10, 1};
+int *arrKaraprekar = new int[4];
 
 int getRand(){
 	int num = rand() % 100;
@@ -21,22 +19,52 @@ bool chkEquality(string buff){
 	int const tam = 4;
 	int num, intBuff[tam] = {-1,-1,-1,-1};
 	for(int i = 0; i < tam; i++){
-		num = stoi(buff[i]);
-		for(int j = 0; j < tam j++){
+		num = (int)buff[i] - 48;
+		cout << num;
+		for(int j = 0; j < tam; j++){
 			if (num == intBuff[j]){
 				return true;
 			}
 		}
 		intBuff[i] = num;
+		cout << intBuff[i];
 		arrKaraprekar[i] = intBuff[i];
 	}
 	return false; 
 }
 
+int arrayToNumber(){
+	int num = 0;
+	for(int i = 0; i < 4; i++){
+		num += arrKaraprekar[i] * powers[i];
+		cout << num << endl;
+	}
+	return num;
+}
+
+void BubbleSort(){
+	for(int i = 0; i < (4-1); i++){
+		for(int j = 0; j < (4-i-1); j++){
+			if (arrKaraprekar[j] > arrKaraprekar[j + 1] ){
+				int temp = arrKaraprekar[j];
+				arrKaraprekar[j] = arrKaraprekar[j + 1];
+				arrKaraprekar[j+1] = temp;	
+			}	
+		}
+	}
+}
+
 void karaprekar(){
-	int res, num, numFalse;
+	int res, num, numI, cont = 1;
 	while (res != 6174){
-		
+		num = arrayToNumber();
+		cout << num << "\n"; 
+		BubbleSort();
+		numI = arrayToNumber();
+		res = numI - num;
+		cout << cont << numI << " - " << num << " = " << res << "\n";
+	cont++;
+		res = 6174;
 	}
 }
 
@@ -48,8 +76,8 @@ int getDigits(){
 		if ( buff.length() != 4){
 			cout << "Debe ingresar un numero de 4 digitos!!!\n";
 		}else{
-			if (chkEquality){
-				cout << "Todos los digitos deben ser diferentes!!\n"
+			if (chkEquality(buff)){
+				cout << "Todos los digitos deben ser diferentes!!\n";
 			}
 			else{
 				break;
