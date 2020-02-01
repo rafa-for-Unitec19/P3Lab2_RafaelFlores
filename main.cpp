@@ -20,42 +20,53 @@ bool chkEquality(string buff){
 	int num, intBuff[tam] = {-1,-1,-1,-1};
 	for(int i = 0; i < tam; i++){
 		num = (int)buff[i] - 48;
-		cout << num;
 		for(int j = 0; j < tam; j++){
 			if (num == intBuff[j]){
 				return true;
 			}
 		}
 		intBuff[i] = num;
-		cout << intBuff[i];
 		arrKaraprekar[i] = intBuff[i];
 	}
 	return false; 
 }
 
-int arrayToNumber(){
+int arrayToNumber(int *temp){
 	int num = 0;
 	for(int i = 0; i < 4; i++){
-		num += arrKaraprekar[i] * powers[i];
+		num += temp[i] * powers[i];
 	}
 	return num;
 }
 
-void numberToArray(int num){
+void numberToArray(int num, int *temp){
 	for(int i = 0; i < 4; i++){
-		arrKaraprekar[i] =  num / powers[i];
+		temp[i] =  num / powers[i];
 		num = num % powers[i];
 	}
 }
 
-void BubbleSort(){
+void BubbleSort(int *temp, bool flag){
 	for(int i = 0; i < (4-1); i++){
 		for(int j = 0; j < (4-i-1); j++){
-			if (arrKaraprekar[j] < arrKaraprekar[j + 1] ){
-				int temp = arrKaraprekar[j];
-				arrKaraprekar[j] = arrKaraprekar[j + 1];
-				arrKaraprekar[j+1] = temp;	
-			}	
+			switch(flag){
+				case true:
+					if (temp[j] < temp[j + 1] ){
+						int buff = temp[j];
+						temp[j] = temp[j + 1];
+						temp[j+1] = buff;	
+					}	
+					break;
+				case false:
+					if (temp[j] > temp[j + 1] ){
+						int buff = temp[j];
+						temp[j] = temp[j + 1];
+						temp[j+1] = buff;	
+					}	
+					break;
+			}
+			
+			
 		}
 	}
 }
@@ -98,16 +109,16 @@ void imprimir(int *arr, int tam){
 
 
 void karaprekar(){
-	int res, num, numI, cont = 1;
-	while (cont < 8){
-		num = arrayToNumber();
-		BubbleSort();
-		imprimir(arrKaraprekar, 4);
-		numI = arrayToNumber();
-		res = numI - num;
-		cout << cont << " | " << numI << " - " << num << " = " << res << "\n";
+	int res, numMax, numMin, cont = 0;
+	while (res != 6174){
+		BubbleSort(arrKaraprekar, true);
+		numMax = arrayToNumber(arrKaraprekar);
+		BubbleSort(arrKaraprekar, false);
+		numMin = arrayToNumber(arrKaraprekar);
+		res = numMax - numMin;
 		cont++;
-		numberToArray(res);
+		cout << endl << cont << " | " << numMax << " - " << numMin << " = " << res << "\n";
+		numberToArray(res, arrKaraprekar);
 	}
 }
 
