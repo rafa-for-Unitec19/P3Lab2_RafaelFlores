@@ -54,19 +54,17 @@ void BubbleSort(int *temp, bool flag){
 					if (temp[j] < temp[j + 1] ){
 						int buff = temp[j];
 						temp[j] = temp[j + 1];
-						temp[j+1] = buff;	
-					}	
+						temp[j+1] = buff;
+					}
 					break;
 				case false:
 					if (temp[j] > temp[j + 1] ){
 						int buff = temp[j];
 						temp[j] = temp[j + 1];
-						temp[j+1] = buff;	
-					}	
+						temp[j+1] = buff;
+					}
 					break;
 			}
-			
-			
 		}
 	}
 }
@@ -92,7 +90,7 @@ int getNumber(int serie){
 }
 
 int euclides(int num1, int num2){
-	if(num2 == 0){
+	if(!num2){
 		return num1;
 	}else{
 		int buff = num1 % num2;
@@ -207,7 +205,6 @@ int menu(){
 	}
 }
 
-
 void selector(){
 	bool flag = false;
 	while(!flag){
@@ -231,6 +228,7 @@ void selector(){
 		}
 	}
 }
+
 
 int main(){
 	selector();
